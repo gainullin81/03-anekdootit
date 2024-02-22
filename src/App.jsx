@@ -1,4 +1,4 @@
-//1.13*: anekdootit step2 
+//1.14*: anekdootit step3 
 import React, { useState } from 'react';
 
 const App = () => {
@@ -20,21 +20,28 @@ const App = () => {
     const randomIndex = Math.floor(Math.random() * anecdotes.length);
     setSelected(randomIndex);
   }
-
   const handleVote = () => {
     const copy = [...points];
     copy[selected] += 1;
     setPoints(copy);
   }
 
+  const maxVotesIndex = points.indexOf(Math.max(...points));
+
   return (
     <div>
       <div>
+        <h2>Anecdote of the day</h2>
         <p>{anecdotes[selected]}</p>
         <p>Has {points[selected]} votes</p>
+        <button onClick={handleVote}>Vote</button>
+        <button onClick={handleNextAnecdote}>Next Anecdote</button>
       </div>
-      <button onClick={handleVote}>Vote</button>
-      <button onClick={handleNextAnecdote}>Next Anecdote</button>
+      <div>
+        <h2>Anecdote with most votes</h2>
+        <p>{anecdotes[maxVotesIndex]}</p>
+        <p>Has {points[maxVotesIndex]} votes</p>
+      </div>
     </div>
   );
 }
